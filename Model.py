@@ -9,7 +9,7 @@ def InitializeModel(
 ):
     # model_id='databricks/dolly-v2-3b'
     # llm = HuggingFaceEndpoint(
-    #     repo_id=repo_id, max_new_tokens=max_new_tokens, temperature=0.1, token= htoken
+    #     endpoint_url = repo_id, max_new_tokens = max_new_tokens, temperature = 0.01, huggingfacehub_api_token= htoken
     # )
     # print(htoken)
     llm = HuggingFaceHub(

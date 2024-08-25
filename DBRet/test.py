@@ -110,16 +110,16 @@ def queryDB(query,k=3,isJava=True,isPython=True,thresholdSameLanguage=0.8,thresh
             test=data["test_cases"]
             tests.append(test)
 
-    return codes,tests
+    return codes , tests
 
 def query_db(code,isJava,isPython,thresholdSameLanguage=0.8,thresholdDifferentLanguage=0.6):
     
-    global model, DEVICE,centroidsJ,centroidsP
+    global model, DEVICE, centroidsJ, centroidsP
     query = get_embeddings(model, code, DEVICE)
-    query=torch.nn.functional.normalize(query,p=2, dim=1)
+    query = torch.nn.functional.normalize(query,p=2, dim=1)
     query = query.numpy()
-    codes,tests=queryDB(query,3,isJava,isPython,thresholdSameLanguage,thresholdDifferentLanguage)
-    return codes,tests
+    codes,tests = queryDB(query , 3, isJava, isPython, thresholdSameLanguage, thresholdDifferentLanguage)
+    return codes, tests
 
 
 # code="lolxd"

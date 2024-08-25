@@ -29,13 +29,8 @@ class TestFix:
         #     self.extractInfo(i)
         # )
         # no feedback means testcase passed so don't run it again
-        if (
-            "OK" in oldFeedback
-            or pd.isna(oldFeedback)
-            or oldFeedback == ""
-            or oldFeedback is None
-        ):
-            print("Example has already passed")
+        if ( "OK" in oldFeedback or pd.isna(oldFeedback) or oldFeedback == "" or oldFeedback is None ):
+            print("Example has already passed")  ## you have to stop here!!!
         try:
             GenerationPostFeedback = self.UnitTestFeedbackChain.invoke(
                 {

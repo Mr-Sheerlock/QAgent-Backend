@@ -49,7 +49,6 @@ I am going to add similar functions and their corresponding test cases that you 
 I am going to to give you a template for your output where:
 Replace **TESTMETHODUNDERTEST** with the right name for the class.
 2- Replace **TEST_CASES_WITH_UNDERSTANDABLE_NAMES** with the test cases that you generated.
-3- Please preserve the indentation and the structure of the template.
 My template is:
 ```python
 import unittest
@@ -73,6 +72,12 @@ def InitializeTestChain(llm, fewshots=False):
         Gen_UnitTest_with_FewShots_template = addMixtralTokens(
             Gen_UnitTest_with_FewShots_template
         )
+    if isinstance(llm, ChatHuggingFace):
+        GenerateTestTemplate = addMixtralTokens(GenerateTestTemplate)
+        Gen_UnitTest_with_FewShots_template = addMixtralTokens(
+            Gen_UnitTest_with_FewShots_template
+        )
+    
     if not fewshots:
         Generate_Unit_Tests_Template = PromptTemplate(
             template=GenerateTestTemplate,
@@ -105,28 +110,29 @@ def InitializeTestChain(llm, fewshots=False):
 #     return response
 
 
-# def createPromptStringGenerateTest(
-#     description, code, fewshots=False, test_cases_of_few_shot=None
-# ):
-#     if not fewshots:
-#         prompt = GenerateTestTemplate.format(description=description, code=code)
-#     else:
-#         prompt = Gen_UnitTest_with_FewShots_template.format(
-#             description=description,
-#             code=code,
-#             test_cases_of_few_shot=test_cases_of_few_shot,
-#         )
-#     return prompt
+def createPromptStringGenerateTest(
+    description, code, fewshots=False, test_cases_of_few_shot=None
+):
+    if not fewshots:
+        prompt = GenerateTestTemplate.format(description=description, code=code)
+    else:
+        prompt = Gen_UnitTest_with_FewShots_template.format(
+            description=description,
+            code=code,
+            test_cases_of_few_shot=test_cases_of_few_shot,
+        )
+    return prompt
 
 
-# def queryGptGenerateTest(
-#     model, description, code, fewshots=False, test_cases_of_few_shot=None
-# ):
-#     prompt = createPromptStringGenerateTest(
-#         description, code, fewshots, test_cases_of_few_shot
-#     )
-#     response = openai.ChatCompletion.create(
-#         model=model, messages=[{"role": "user", "content": prompt}]
-#     )
+def queryGptGenerateTest(
+    model, description, code, fewshots=False, test_cases_of_few_shot=None
+):
+    prompt = createPromptStringGenerateTest(
+        description, code, fewshots, test_cases_of_few_shot
+    )
+    
+    response = openai.ChatCompletion.create(
+        model=model, messages=[{"role": "user", "content": prompt}]
+    )
 
-#     return response
+    return response
