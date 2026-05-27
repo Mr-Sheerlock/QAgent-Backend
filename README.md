@@ -1,8 +1,6 @@
 # QAgent Backend
 
-A compact project implementing a Retrieval-Augmented Generation (RAG) pipeline built around Mixtral 8x7B
-and a custom Vector Database. The system automates unit test generation, bug report creation, and code repair
-by combining a powerful LLM with high-precision semantic search over curated code–test pairs.
+A compact project implementing a custom Vector Database that also feeds a Retrieval-Augmented Generation (RAG) pipeline built around Mixtral 8x7B. The system automates unit test generation, bug report creation, and code repair by using high-precision semantic search over curated code–test pairs.
 
 ## Highlights
 
